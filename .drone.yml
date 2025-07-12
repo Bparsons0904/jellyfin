@@ -6,7 +6,7 @@ steps:
   - name: deploy
     image: docker:24-cli
     volumes:
-      - name: docker-sock
+      - name: jellyfin-docker-sock
         path: /var/run/docker.sock
     commands:
       - apk add --no-cache docker-compose
@@ -20,6 +20,6 @@ steps:
         - push
 
 volumes:
-  - name: docker-sock
+  - name: jellyfin-docker-sock
     host:
       path: /var/run/docker.sock
