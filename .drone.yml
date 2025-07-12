@@ -5,9 +5,6 @@ name: jellyfin-deploy
 steps:
   - name: deploy
     image: docker:24-cli
-    volumes:
-      - name: jellyfin-docker-sock
-        path: /var/run/docker.sock
     commands:
       - apk add --no-cache docker-compose
       - docker-compose down || true
@@ -18,8 +15,3 @@ steps:
         - main
       event:
         - push
-
-volumes:
-  - name: jellyfin-docker-sock
-    host:
-      path: /var/run/docker.sock
