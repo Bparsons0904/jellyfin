@@ -1,0 +1,24 @@
+kind: pipeline
+type: docker
+name: jellyfin-deploy
+
+steps:
+  - name: deploy
+    image: docker/compose:latest
+    volumes:
+      - name: docker-sock
+        path: /var/run/docker.sock
+    commands:
+      - docker compose down || true
+      - docker compose pull
+      - docker compose up -d
+    when:
+      branch:
+        - main
+      event:
+        - push
+
+volumes:
+  - name: docker-sock
+    host:
+      path: /var/run/docker.sock
