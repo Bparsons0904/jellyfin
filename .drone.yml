@@ -2,13 +2,20 @@ kind: pipeline
 type: docker
 name: jellyfin-deploy
 
-# Test
+services:
+  - name: docker
+    image: docker:dind
+    privileged: true
+    volumes:
+      - name: docker-sock
+        path: /var/run
+
 steps:
   - name: deploy
     image: docker/compose:latest
-    volumes:
-      - name: docker-sock
-        path: /var/run/docker.sock
+    environment:
+      DOCKER_HOST: tcp://docker:2376
+      DOCKER_TLS_CERTDIR: ""
     commands:
       - docker compose down || true
       - docker compose pull
@@ -21,5 +28,4 @@ steps:
 
 volumes:
   - name: docker-sock
-    host:
-      path: /var/run/docker.sock
+    temp: {}
