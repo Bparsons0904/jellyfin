@@ -4,11 +4,12 @@ name: jellyfin-deploy
 
 steps:
   - name: deploy
-    image: docker/compose:2.23.0
+    image: docker:24-cli
     volumes:
       - name: docker-sock
         path: /var/run/docker.sock
     commands:
+      - apk add --no-cache docker-compose
       - docker-compose down || true
       - docker-compose pull
       - docker-compose up -d
