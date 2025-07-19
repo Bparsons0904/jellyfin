@@ -10,6 +10,7 @@ services:
       - /dev/dri:/dev/dri
     networks:
       - traefik
+      - jellyfin
     volumes:
       - /home/server/jellyfin/config:/config
       - /home/server/jellyfin/cache:/cache
@@ -29,3 +30,5 @@ services:
 networks:
   traefik:
     external: true
+  jellyfin:
+    driver: bridge
