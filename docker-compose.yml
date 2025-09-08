@@ -5,7 +5,7 @@ services:
     user: 1000:1000
     group_add:
       - "44" # video group
-      - "993" # render group
+      - "992" # render group
     devices:
       - /dev/dri:/dev/dri
     networks:
@@ -18,6 +18,7 @@ services:
     environment:
       - TZ=America/Chicago
       - JELLYFIN_CACHE_DIR=/cache
+      - LIBVA_DRIVER_NAME=radeonsi
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
